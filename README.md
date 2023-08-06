@@ -20,7 +20,9 @@ unset CNF_RELEASE
 ## Usage
 
 ```bash
-Usage: cnf-install ${COMMAND} [-f/--force]
+Usage: cnf-install ${COMMAND} [-f -p]
+  -f / --force - force command-not-found.com query to show installation methods even if package is already installed
+  -p / --package_only - show package names only in output - useful for automation
 ```
 
 ## Examples
@@ -32,7 +34,9 @@ $ http --version
 bash: http: command not found
 
 $ cnf-install 
-Usage: cnf-install ${COMMAND} [-f/--force]
+Usage: cnf-install ${COMMAND} [-f -p]
+  -f / --force - force command-not-found.com query to show installation methods even if package is already installed
+  -p / --package_only - show package names only in output - useful for automation
 
 $ cnf-install thtp
 No installers found on https://command-not-found.com/thtp
@@ -69,6 +73,14 @@ $ cnf-install ansible-playbook
 Found 6 installers, searching for one installed on your system...
 Skipping: apk
 Installer: apt-get, Command: apt-get install ansible
+
+$ cnf-install ansible-playbook -p
+Command ansible-playbook already installed.
+Use -f/--force to show installation instructions anyway.
+File found: /opt/homebrew/bin/ansible-playbook
+
+$ cnf-install ansible-playbook -p -f
+ansible
 ```
 
 ### Ubuntu
@@ -78,7 +90,9 @@ $ http --version
 -bash: http: command not found
 
 $ cnf_install 
-Usage: cnf-install ${COMMAND} [-f/--force]
+Usage: cnf-install ${COMMAND} [-f -p]
+  -f / --force - force command-not-found.com query to show installation methods even if package is already installed
+  -p / --package_only - show package names only in output - useful for automation
 
 $ cnf_install http
 curl not installed. Check out https://command-not-found.com/curl for instructions.

@@ -4,9 +4,12 @@ COMMAND="${1}"
 CNF_URL="https://command-not-found.com"
 DEPENDENCIES=( bash which curl xmllint grep awk sort basename echo )
 
-[[ -z ${COMMAND} ]] &&\
-  echo "Usage: $(basename $0) \${COMMAND} [-f/--force]" &&\
+if [[ -z ${COMMAND} ]]; then
+  echo "Usage: $(basename $0) \${COMMAND} [-f -p]"
+  echo "  -f / --force - force command-not-found.com query to show installation methods even if package is already installed"
+  echo "  -p / --package_only - show package names only in output - useful for automation"
   exit 1
+fi
 
 for i in "$@"; do
   case $i in
@@ -14,22 +17,31 @@ for i in "$@"; do
       force=true
       shift
       ;;
+    -p|--package-only)
+      package_only=true
+      shift
+      ;;
     *)
       ;;
   esac
 done
 
-[[ -f $(which ${COMMAND} 2>/dev/null) && -z ${force} ]] &&\
-  echo "Command ${COMMAND} already installed." &&\
-  echo "Use -f/--force to show installation instructions anyway." &&\
-  echo "File found: $(which ${COMMAND})" &&\
+if [[ -f $(which ${COMMAND} 2>/dev/null) && -z ${force} ]]; then
+  echo "Command ${COMMAND} already installed."
+  echo "Use -f/--force to show installation instructions anyway."
+  echo "File found: $(which ${COMMAND})"
   exit 0
+fi
 
 for dep in "${DEPENDENCIES[@]}"; do
-  [[ ! -f $(which ${dep} 2>/dev/null) ]] &&\
-    echo "${dep} not installed. Check out ${CNF_URL}/${dep} for instructions." &&\
+
+  if [[ ! -f $(which ${dep} 2>/dev/null) ]]; then
+    echo "${dep} not installed. Check out ${CNF_URL}/${dep} for instructions."
     dep_failed=1
+  fi
+
 done
+
 [[ ! -z ${dep_failed} ]] && exit 1
 
 mapfile -t INSTALLERS < <( curl -sSL0 "${CNF_URL}/${COMMAND}" |\
@@ -39,18 +51,33 @@ mapfile -t INSTALLERS < <( curl -sSL0 "${CNF_URL}/${COMMAND}" |\
   sort -u \
 )
 
-[[ "${#INSTALLERS[@]}" == 0 ]] && echo "No installers available found on ${CNF_URL}/${COMMAND}" && exit 1
+if [[ "${#INSTALLERS[@]}" == 0 ]]; then
+  echo "No installers available found on ${CNF_URL}/${COMMAND}"
+  exit 1
+fi
 
-echo "Found ${#INSTALLERS[@]} installers, searching for one installed on your system..."
+[[ -z ${package_only} ]] && echo "Found ${#INSTALLERS[@]} installers, searching for one installed on your system..."
 
 for install_cmd in "${INSTALLERS[@]}"; do
-  installer=$(echo "${install_cmd}" | cut -d' ' -f 1)
 
-  [[ $(which ${installer} 2>/dev/null) ]] &&\
-    echo "Installer: ${installer}, Command: ${install_cmd}" &&\
-    installer_found=1 ||\
-    echo "Skipping: ${installer}"
+  installer=$(echo "${install_cmd}" | cut -d' ' -f 1)
+  package_name=$(echo "${install_cmd}" | awk '{print $NF}')
+
+  if [[ $(which ${installer} 2>/dev/null) ]]; then
+    installer_found=1
+
+    if [[ -z ${package_only} ]]; then
+      echo "Installer: ${installer}, Command: ${install_cmd}"
+    else
+      echo "${package_name}"
+    fi
+
+  else
+      [[ -z ${package_only} ]] && echo "Skipping: ${installer}"
+  fi
+
   [[ ${installer_found} == 1 ]] && break
+
 done
 
 [[ -z ${installer_found} ]] && echo "No valid installation method found for your system."
