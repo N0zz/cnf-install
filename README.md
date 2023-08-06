@@ -27,7 +27,7 @@ $ cnf-install
 Usage: cnf-install ${COMMAND}
 
 $ cnf-install thtp
-No installers available found on https://command-not-found.com/thtp
+No installers found on https://command-not-found.com/thtp
 
 $ cnf-install http
 Found 5 installers, searching for one installed on your system...
