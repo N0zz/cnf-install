@@ -70,7 +70,12 @@ curl not installed. Check out https://command-not-found.com/curl for instruction
 ### Fedora
 
 ```bash
-
+[root@b0efab149bfe /]# cnf-install http
+Found 5 installers, searching for one installed on your system...
+Skipping: apk
+Skipping: apt-get
+Skipping: brew
+Installer: dnf, Command: dnf install httpie
 ```
 
 ## Thanks
