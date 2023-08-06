@@ -19,10 +19,37 @@ unset CNF_RELEASE
 
 ## Usage
 
+### Standard usage
+
 ```bash
 Usage: cnf-install ${COMMAND} [-f -p]
   -f / --force - force command-not-found.com query to show installation methods even if package is already installed
   -p / --package_only - show package names only in output - useful for automation
+```
+
+### Example usage within ansible
+
+```yaml
+- name: CNF Install example playbook
+  hosts: all
+  tasks:
+    - name: Fetch CNF package
+      ansible.builtin.command:
+        cmd: cnf-install {{ item }} --package-only --force
+      changed_when: true
+      loop: "{{ cnf_commands }}"
+      register: cnf_packages
+
+    - name: Install packages
+      ansible.builtin.package:
+        name: "{{ item.stdout }}"
+        state: present
+      loop: "{{ cnf_packages.results }}"
+      loop_control:
+        label: "Command {{ item.item }} from package: {{ item.stdout }}"
+
+  vars:
+    cnf_commands: ["http", "ansible-playbook"]
 ```
 
 ## Examples
