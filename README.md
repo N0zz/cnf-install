@@ -20,7 +20,7 @@ unset CNF_RELEASE
 ## Usage
 
 ```bash
-cnf-install ${COMMAND}
+Usage: cnf-install ${COMMAND} [-f/--force]
 ```
 
 ## Examples
