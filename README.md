@@ -32,7 +32,7 @@ $ http --version
 bash: http: command not found
 
 $ cnf-install 
-Usage: cnf-install ${COMMAND}
+Usage: cnf-install ${COMMAND} [-f/--force]
 
 $ cnf-install thtp
 No installers found on https://command-not-found.com/thtp
@@ -51,7 +51,14 @@ $ brew install httpie
 
 $ cnf-install http
 Command http already installed.
-/opt/homebrew/bin/http
+Use -f/--force to show installation instructions anyway.
+File found: /opt/homebrew/bin/http
+
+$ cnf-install http -f
+Found 5 installers, searching for one installed on your system...
+Skipping: apk
+Skipping: apt-get
+Installer: brew, Command: brew install httpie
 ```
 
 ### Ubuntu
@@ -61,7 +68,7 @@ $ http --version
 -bash: http: command not found
 
 $ cnf_install 
-Usage: cnf_install ${COMMAND}
+Usage: cnf-install ${COMMAND} [-f/--force]
 
 $ cnf_install http
 curl not installed. Check out https://command-not-found.com/curl for instructions.
@@ -102,7 +109,8 @@ OK: 102 MiB in 73 packages
 
 $ cnf-install http
 Command http already installed.
-/usr/bin/http
+Use -f/--force to show installation instructions anyway.
+File found: /usr/bin/http
 ```
 
 ### Fedora

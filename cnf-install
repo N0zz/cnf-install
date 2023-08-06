@@ -5,12 +5,24 @@ CNF_URL="https://command-not-found.com"
 DEPENDENCIES=( bash which curl xmllint grep awk sort basename echo )
 
 [[ -z ${COMMAND} ]] &&\
-  echo "Usage: $(basename $0) \${COMMAND}" &&\
+  echo "Usage: $(basename $0) \${COMMAND} [-f/--force]" &&\
   exit 1
 
-[[ -f $(which ${COMMAND} 2>/dev/null) ]] &&\
+for i in "$@"; do
+  case $i in
+    -f|--force)
+      force=true
+      shift
+      ;;
+    *)
+      ;;
+  esac
+done
+
+[[ -f $(which ${COMMAND} 2>/dev/null) && -z ${force} ]] &&\
   echo "Command ${COMMAND} already installed." &&\
-  which ${COMMAND} &&\
+  echo "Use -f/--force to show installation instructions anyway." &&\
+  echo "File found: $(which ${COMMAND})" &&\
   exit 0
 
 for dep in "${DEPENDENCIES[@]}"; do
