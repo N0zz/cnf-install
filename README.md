@@ -52,3 +52,9 @@ Found 5 installers, searching for one installed on your system...
 Skipping: apk
 Installer: apt-get, Command: apt-get install httpie
 ```
+
+## Thanks
+
+Thanks to [@lukaszlach](https://github.com/lukaszlach) for developing [command-not-found.com](https://command-not-found.com/) and [commando](https://github.com/lukaszlach/commando).
+
+Inspired by: https://github.com/lukaszlach/commando/blob/master/builder/alpine/install.sh
