@@ -44,6 +44,8 @@ done
 
 [[ ! -z ${dep_failed} ]] && exit 1
 
+# command-not-found.com api only has one endpoint for alpine, thats why we need to use xmlint to parse website
+# source: https://github.com/lukaszlach/commando/issues/3#issuecomment-930573752
 mapfile -t INSTALLERS < <( curl -sSL0 "${CNF_URL}/${COMMAND}" |\
   xmllint --html --xpath "//div[starts-with(@class, 'command-install')]/dd/code" - 2>/dev/null |\
   awk -F'[><]' '{print $3}' |\

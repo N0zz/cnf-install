@@ -11,10 +11,8 @@ Minor dependencies (`curl`, `xmllint`, `grep`, `awk`, `sort`, `basename`, `echo`
 ### Install
 
 ```bash
-CNF_RELEASE="v0.3-alfa"
-wget https://github.com/N0zz/cnf-install/releases/download/${CNF_RELEASE}/cnf-install -O /usr/bin/cnf-install
+wget https://github.com/N0zz/cnf-install/releases/download/latest/cnf-install -O /usr/bin/cnf-install
 chmod +x /usr/bin/cnf-install
-unset CNF_RELEASE
 ```
 
 ## Usage
