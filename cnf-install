@@ -76,7 +76,9 @@ for install_cmd in "${INSTALLERS[@]}"; do
       [[ -z ${package_only} ]] && echo "Skipping: ${installer}"
   fi
 
-  [[ ${installer_found} == 1 ]] && break
+  if [[ ${installer_found} == 1 ]]; then
+    break
+  fi
 
 done
 
