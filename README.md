@@ -2,8 +2,16 @@
 
 ## Installation
 
+### Dependencies
+
+`cnf-install` major dependencies are `bash` and `which`.
+
+Minor dependencies (`curl`, `xmllint`, `grep`, `awk`, `sort`, `basename`, `echo`) are handled by `cnf-install`, which provides installation instructions if you're missing them.
+
+### Install
+
 ```bash
-CNF_RELEASE="v0.1-alfa"
+CNF_RELEASE="v0.2-alfa"
 wget https://github.com/N0zz/cnf-install/releases/download/${CNF_RELEASE}/cnf-install -O /usr/bin/cnf-install
 chmod +x /usr/bin/cnf-install
 unset CNF_RELEASE
@@ -34,6 +42,16 @@ Found 5 installers, searching for one installed on your system...
 Skipping: apk
 Skipping: apt-get
 Installer: brew, Command: brew install httpie
+
+$ brew install httpie
+==> Fetching httpie
+...
+==> Summary
+🍺  /opt/homebrew/Cellar/httpie/3.2.2: 1,232 files, 13MB
+
+$ cnf-install http
+Command http already installed.
+/opt/homebrew/bin/http
 ```
 
 ### Ubuntu
