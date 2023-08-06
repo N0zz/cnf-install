@@ -56,7 +56,9 @@ if [[ "${#INSTALLERS[@]}" == 0 ]]; then
   exit 1
 fi
 
-[[ -z ${package_only} ]] && echo "Found ${#INSTALLERS[@]} installers, searching for one installed on your system..."
+if [[ -z ${package_only} ]]; then
+  echo "Found ${#INSTALLERS[@]} installers, searching for one installed on your system..."
+fi
 
 for install_cmd in "${INSTALLERS[@]}"; do
 
@@ -73,7 +75,9 @@ for install_cmd in "${INSTALLERS[@]}"; do
     fi
 
   else
-      [[ -z ${package_only} ]] && echo "Skipping: ${installer}"
+      if [[ -z ${package_only} ]]; then
+        echo "Skipping: ${installer}"
+      fi
   fi
 
   if [[ ${installer_found} == 1 ]]; then
@@ -82,4 +86,6 @@ for install_cmd in "${INSTALLERS[@]}"; do
 
 done
 
-[[ -z ${installer_found} ]] && echo "No valid installation method found for your system."
+if [[ -z ${installer_found} ]];then
+  echo "No valid installation method found for your system."
+fi
