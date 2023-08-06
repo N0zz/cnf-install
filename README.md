@@ -1,5 +1,14 @@
 # cnf-install
 
+## Installation
+
+```bash
+CNF_RELEASE="v0.1-alfa"
+wget https://github.com/N0zz/cnf-install/releases/download/${CNF_RELEASE}/cnf-install -O /usr/bin/cnf-install
+chmod +x /usr/bin/cnf-install
+unset CNF_RELEASE
+```
+
 ## Usage
 
 ```bash
@@ -11,6 +20,8 @@ cnf-install ${COMMAND}
 ### Mac OS
 
 ```bash
+$ http --version
+bash: http: command not found
 $ cnf-install 
 Usage: cnf-install ${COMMAND}
 $ cnf-install thtp
@@ -25,6 +36,8 @@ Installer: brew, Command: brew install httpie
 ### Ubuntu
 
 ```bash
+$ http --version
+-bash: http: command not found
 $ cnf_install 
 Usage: cnf_install ${COMMAND}
 $ cnf_install http
