@@ -59,6 +59,16 @@ Found 5 installers, searching for one installed on your system...
 Skipping: apk
 Skipping: apt-get
 Installer: brew, Command: brew install httpie
+
+$ cnf-install ansible
+Found 6 installers, searching for one installed on your system...
+Skipping: apk
+Installer: apt-get, Command: apt-get install ansible
+
+$ cnf-install ansible-playbook
+Found 6 installers, searching for one installed on your system...
+Skipping: apk
+Installer: apt-get, Command: apt-get install ansible
 ```
 
 ### Ubuntu
