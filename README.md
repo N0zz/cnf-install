@@ -22,10 +22,13 @@ cnf-install ${COMMAND}
 ```bash
 $ http --version
 bash: http: command not found
+
 $ cnf-install 
 Usage: cnf-install ${COMMAND}
+
 $ cnf-install thtp
 No installers available found on https://command-not-found.com/thtp
+
 $ cnf-install http
 Found 5 installers, searching for one installed on your system...
 Skipping: apk
@@ -38,15 +41,19 @@ Installer: brew, Command: brew install httpie
 ```bash
 $ http --version
 -bash: http: command not found
+
 $ cnf_install 
 Usage: cnf_install ${COMMAND}
+
 $ cnf_install http
 curl not installed. Check out https://command-not-found.com/curl for instructions.
+
 $ apt-get install -y curl
 ...
 The following NEW packages will be installed:
   curl
 ...
+
 $ cnf_install http
 Found 5 installers, searching for one installed on your system...
 Skipping: apk
@@ -59,18 +66,31 @@ Installer: apt-get, Command: apt-get install httpie
 $ cnf-install http
 Found 5 installers, searching for one installed on your system...
 Installer: apk, Command: apk add httpie
+
 $ apk del curl
 (1/7) Purging curl (8.2.1-r0)
 ...
 OK: 14 MiB in 23 packages
+
 $ cnf-install http
 curl not installed. Check out https://command-not-found.com/curl for instructions.
+
+$ cnf-install http
+Found 5 installers, searching for one installed on your system...
+Installer: apk, Command: apk add httpie
+$ apk add httpie
+...
+OK: 102 MiB in 73 packages
+
+$ cnf-install http
+Command http already installed.
+/usr/bin/http
 ```
 
 ### Fedora
 
 ```bash
-[root@b0efab149bfe /]# cnf-install http
+$ cnf-install http
 Found 5 installers, searching for one installed on your system...
 Skipping: apk
 Skipping: apt-get
