@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+COMMAND="${1}"
+CNF_URL="https://command-not-found.com"
+DEPENDENCIES=( which curl xmllint grep awk sort basename echo )
+
+[[ -z ${COMMAND} ]] && echo "Usage: $(basename $0) \${COMMAND}" && exit 1
+
+for dep in "${DEPENDENCIES[@]}"; do
+  [[ ! -f $(which ${dep}) ]] && echo "${dep} not installed. Check out ${CNF_URL}/${dep} for instructions." && dep_failed=1
+done
+[[ ! -z ${dep_failed} ]] && exit 1
+
+mapfile -t INSTALLERS < <( curl -sSL0 "${CNF_URL}/${COMMAND}" |\
+  xmllint --html --xpath "//div[starts-with(@class, 'command-install')]/dd/code" - 2>/dev/null |\
+  awk -F'[><]' '{print $3}' |\
+  grep -v 'cmd.cat\|docker\|sudo' |\
+  sort -u \
+)
+
+[[ "${#INSTALLERS[@]}" == 0 ]] && echo "No installers available found on ${CNF_URL}/${COMMAND}" && exit 1
+
+echo "Found ${#INSTALLERS[@]} installers, searching for one installed on your system..."
+
+for install_cmd in "${INSTALLERS[@]}"; do
+  installer=$(echo "${install_cmd}" | cut -d' ' -f 1)
+
+  [[ $(which ${installer}) ]] && echo "Installer: ${installer}, Command: ${install_cmd}" && installer_found=1 || echo "Skipping: ${installer}"
+  [[ ${installer_found} == 1 ]] && break
+done
+
+[[ -z ${installer_found} ]] && echo "No valid installation method found for your system."
