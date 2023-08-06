@@ -53,6 +53,26 @@ Skipping: apk
 Installer: apt-get, Command: apt-get install httpie
 ```
 
+### Alpine
+
+```bash
+$ cnf-install http
+Found 5 installers, searching for one installed on your system...
+Installer: apk, Command: apk add httpie
+$ apk del curl
+(1/7) Purging curl (8.2.1-r0)
+...
+OK: 14 MiB in 23 packages
+$ cnf-install http
+curl not installed. Check out https://command-not-found.com/curl for instructions.
+```
+
+### Fedora
+
+```bash
+
+```
+
 ## Thanks
 
 Thanks to [@lukaszlach](https://github.com/lukaszlach) for developing [command-not-found.com](https://command-not-found.com/) and [commando](https://github.com/lukaszlach/commando).

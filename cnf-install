@@ -2,12 +2,12 @@
 
 COMMAND="${1}"
 CNF_URL="https://command-not-found.com"
-DEPENDENCIES=( which curl xmllint grep awk sort basename echo )
+DEPENDENCIES=( bash which curl xmllint grep awk sort basename echo )
 
 [[ -z ${COMMAND} ]] && echo "Usage: $(basename $0) \${COMMAND}" && exit 1
 
 for dep in "${DEPENDENCIES[@]}"; do
-  [[ ! -f $(which ${dep}) ]] && echo "${dep} not installed. Check out ${CNF_URL}/${dep} for instructions." && dep_failed=1
+  [[ ! -f $(which ${dep} 2>/dev/null) ]] && echo "${dep} not installed. Check out ${CNF_URL}/${dep} for instructions." && dep_failed=1
 done
 [[ ! -z ${dep_failed} ]] && exit 1
 
@@ -25,7 +25,7 @@ echo "Found ${#INSTALLERS[@]} installers, searching for one installed on your sy
 for install_cmd in "${INSTALLERS[@]}"; do
   installer=$(echo "${install_cmd}" | cut -d' ' -f 1)
 
-  [[ $(which ${installer}) ]] && echo "Installer: ${installer}, Command: ${install_cmd}" && installer_found=1 || echo "Skipping: ${installer}"
+  [[ $(which ${installer} 2>/dev/null) ]] && echo "Installer: ${installer}, Command: ${install_cmd}" && installer_found=1 || echo "Skipping: ${installer}"
   [[ ${installer_found} == 1 ]] && break
 done
 
