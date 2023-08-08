@@ -20,9 +20,11 @@ chmod +x /usr/bin/cnf-install
 ### Standard usage
 
 ```bash
-Usage: cnf-install ${COMMAND} [-f -p]
-  -f / --force - force command-not-found.com query to show installation methods even if package is already installed
-  -p / --package_only - show package names only in output - useful for automation
+Usage: cnf-install ${COMMAND} [-h -f -p -v]
+  -h / --help            - prints help/usage
+  -f / --force           - force command-not-found.com query to show installation methods even if package is already installed
+  -p / --package_only    - show package names only in output - useful for automation
+  -v / --version         - prints cnf-install version
 ```
 
 ### Example usage within ansible
