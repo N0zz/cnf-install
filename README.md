@@ -55,26 +55,35 @@ Usage: cnf-install ${COMMAND} [-f -p]
 ### Mac OS
 
 ```bash
-$ http --version
-bash: http: command not found
 
-$ cnf-install 
-Usage: cnf-install ${COMMAND} [-f -p]
-  -f / --force - force command-not-found.com query to show installation methods even if package is already installed
-  -p / --package_only - show package names only in output - useful for automation
+$ cnf-install
+Usage: cnf-install ${COMMAND} [-h -f -p -v]
+  -h / --help            - prints help/usage
+  -f / --force           - force command-not-found.com query to show installation methods even if package is already installed
+  -p / --package_only    - show package names only in output - useful for automation
+  -v / --version         - prints cnf-install version
 
-$ cnf-install thtp
-No installers found on https://command-not-found.com/thtp
+$ cnf-install -v
+Version: 0.4-alpha (https://github.com/N0zz/cnf-install/releases/tag/v0.4-alfa)
+
+$ cnf-install -h
+Usage: cnf-install ${COMMAND} [-h -f -p -v]
+  -h / --help            - prints help/usage
+  -f / --force           - force command-not-found.com query to show installation methods even if package is already installed
+  -p / --package_only    - show package names only in output - useful for automation
+  -v / --version         - prints cnf-install version
 
 $ cnf-install http
-Found 5 installers, searching for one installed on your system...
+Found 5 installers, searching for one available on your system...
 Skipping: apk
 Skipping: apt-get
 Installer: brew, Command: brew install httpie
 
-$ brew install httpie
+$ brew install httpie | grep -A1 'Fetching\|Summary'
+Warning: Treating httpie as a formula. For the cask, use homebrew/cask/httpie
 ==> Fetching httpie
-...
+==> Downloading https://ghcr.io/v2/homebrew/core/httpie/manifests/3.2.2-1
+--
 ==> Summary
 🍺  /opt/homebrew/Cellar/httpie/3.2.2: 1,232 files, 13MB
 
@@ -84,28 +93,31 @@ Use -f/--force to show installation instructions anyway.
 File found: /opt/homebrew/bin/http
 
 $ cnf-install http -f
-Found 5 installers, searching for one installed on your system...
+Found 5 installers, searching for one available on your system...
 Skipping: apk
 Skipping: apt-get
 Installer: brew, Command: brew install httpie
 
-$ cnf-install ansible
-Found 6 installers, searching for one installed on your system...
+$ cnf-install ansible -f
+Found 6 installers, searching for one available on your system...
 Skipping: apk
-Installer: apt-get, Command: apt-get install ansible
+Skipping: apt-get
+Installer: brew, Command: brew install ansible
 
-$ cnf-install ansible-playbook
-Found 6 installers, searching for one installed on your system...
+$ cnf-install ansible-playbook -f
+Found 6 installers, searching for one available on your system...
 Skipping: apk
-Installer: apt-get, Command: apt-get install ansible
+Skipping: apt-get
+Installer: brew, Command: brew install ansible
 
-$ cnf-install ansible-playbook -p
-Command ansible-playbook already installed.
-Use -f/--force to show installation instructions anyway.
-File found: /opt/homebrew/bin/ansible-playbook
-
-$ cnf-install ansible-playbook -p -f
+$ cnf-install ansible -f -p
 ansible
+
+$ cnf-install ansible-playbook -f -p
+ansible
+
+$ cnf-install non-existing-command
+No installers available found on https://command-not-found.com/non-existing-command
 ```
 
 ### Ubuntu
