@@ -2,17 +2,40 @@
 
 COMMAND="${1}"
 CNF_URL="https://command-not-found.com"
-DEPENDENCIES=( bash which curl xmllint grep awk sort basename echo )
+DEPENDENCIES=( bash which curl xmllint grep awk sort basename echo column )
 
-if [[ -z ${COMMAND} ]]; then
-  echo "Usage: $(basename $0) \${COMMAND} [-f -p]"
-  echo "  -f / --force - force command-not-found.com query to show installation methods even if package is already installed"
-  echo "  -p / --package_only - show package names only in output - useful for automation"
-  exit 1
-fi
+print_help() {
+  echo "Usage: $(basename $0) \${COMMAND} [-h -f -p -v]"
+  help_output+="  -h / --help | - prints help/usage\n"
+  help_output+="  -f / --force | - force command-not-found.com query to show installation methods even if package is already installed\n"
+  help_output+="  -p / --package_only | - show package names only in output - useful for automation\n"
+  help_output+="  -v / --version | - prints cnf-install version\n"
+  echo -e "${help_output}" | column -t -s '|'
+}
+
+print_version() {
+  echo "Version: 0.4-alpha (https://github.com/N0zz/cnf-install/releases/tag/v0.4-alfa)"
+}
+
+for dep in "${DEPENDENCIES[@]}"; do
+
+  if [[ ! -f $(which ${dep} 2>/dev/null) ]]; then
+    echo "${dep} not installed. Check out ${CNF_URL}/${dep} for instructions."
+    dep_failed=1
+  fi
+
+done
 
 for i in "$@"; do
   case $i in
+    -h|--help)
+      print_help
+      exit 0
+      ;;
+    -v|--version)
+      print_version
+      exit 0
+      ;;
     -f|--force)
       force=true
       shift
@@ -26,21 +49,17 @@ for i in "$@"; do
   esac
 done
 
+if [[ -z ${COMMAND} ]]; then
+  print_help
+  exit 1
+fi
+
 if [[ -f $(which ${COMMAND} 2>/dev/null) && -z ${force} ]]; then
   echo "Command ${COMMAND} already installed."
   echo "Use -f/--force to show installation instructions anyway."
   echo "File found: $(which ${COMMAND})"
   exit 0
 fi
-
-for dep in "${DEPENDENCIES[@]}"; do
-
-  if [[ ! -f $(which ${dep} 2>/dev/null) ]]; then
-    echo "${dep} not installed. Check out ${CNF_URL}/${dep} for instructions."
-    dep_failed=1
-  fi
-
-done
 
 [[ ! -z ${dep_failed} ]] && exit 1
 
@@ -59,7 +78,7 @@ if [[ "${#INSTALLERS[@]}" == 0 ]]; then
 fi
 
 if [[ -z ${package_only} ]]; then
-  echo "Found ${#INSTALLERS[@]} installers, searching for one installed on your system..."
+  echo "Found ${#INSTALLERS[@]} installers, searching for one available on your system..."
 fi
 
 for install_cmd in "${INSTALLERS[@]}"; do
@@ -90,4 +109,7 @@ done
 
 if [[ -z ${installer_found} ]];then
   echo "No valid installation method found for your system."
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "Perhaps you might want to install brew first (https://brew.sh/)."
+  fi
 fi
