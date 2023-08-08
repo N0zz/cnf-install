@@ -6,12 +6,12 @@
 
 `cnf-install` major dependencies are `bash` and `which`.
 
-Minor dependencies (`curl`, `xmllint`, `grep`, `awk`, `sort`, `basename`, `echo`) are handled by `cnf-install`, which provides installation instructions if you're missing them.
+Minor dependencies (`curl`, `xmllint`, `grep`, `awk`, `sort`, `basename`, `echo`, `column`) are handled by `cnf-install`, which provides installation instructions if you're missing them.
 
 ### Install
 
 ```bash
-wget https://github.com/N0zz/cnf-install/releases/download/latest/cnf-install -O /usr/bin/cnf-install
+wget https://github.com/N0zz/cnf-install/releases/download/v0.4-alfa/cnf-install -O /usr/bin/cnf-install
 chmod +x /usr/bin/cnf-install
 ```
 
