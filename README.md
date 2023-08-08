@@ -11,7 +11,7 @@ Minor dependencies (`curl`, `xmllint`, `grep`, `awk`, `sort`, `basename`, `echo`
 ### Install
 
 ```bash
-wget https://github.com/N0zz/cnf-install/releases/download/v0.4-alfa/cnf-install -O /usr/bin/cnf-install
+wget https://github.com/N0zz/cnf-install/releases/download/v0.5-alfa/cnf-install -O /usr/bin/cnf-install
 chmod +x /usr/bin/cnf-install
 ```
 
