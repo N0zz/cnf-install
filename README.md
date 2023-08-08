@@ -11,7 +11,7 @@ Minor dependencies (`curl`, `xmllint`, `grep`, `awk`, `sort`, `basename`, `echo`
 ### Install
 
 ```bash
-wget https://github.com/N0zz/cnf-install/releases/download/v0.5-alfa/cnf-install -O /usr/bin/cnf-install
+wget https://github.com/N0zz/cnf-install/releases/download/v0.1/cnf-install -O /usr/bin/cnf-install
 chmod +x /usr/bin/cnf-install
 ```
 
@@ -68,7 +68,7 @@ Usage: cnf-install ${COMMAND} [-h -f -p -v -i]
   -i / --install         - perform actuall package installation (by default only prints installation command)
 
 $ cnf-install -v
-Version: v0.5-alfa (https://github.com/N0zz/cnf-install/releases/tag/v0.5-alfa)
+Version: v0.1 (https://github.com/N0zz/cnf-install/releases/tag/v0.1)
 
 $ cnf-install -h
 Usage: cnf-install ${COMMAND} [-h -f -p -v -i]

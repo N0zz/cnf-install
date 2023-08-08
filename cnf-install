@@ -15,7 +15,7 @@ print_help() {
 }
 
 print_version() {
-  echo "Version: v0.5-alfa (https://github.com/N0zz/cnf-install/releases/tag/v0.5-alfa)"
+  echo "Version: v0.1 (https://github.com/N0zz/cnf-install/releases/tag/v0.1)"
 }
 
 for dep in "${DEPENDENCIES[@]}"; do
