@@ -25,6 +25,7 @@ Usage: cnf-install ${COMMAND} [-h -f -p -v]
   -f / --force           - force command-not-found.com query to show installation methods even if package is already installed
   -p / --package_only    - show package names only in output - useful for automation
   -v / --version         - prints cnf-install version
+  -i / --install         - perform actuall package installation (by default only prints installation command)
 ```
 
 ### Example usage within ansible
@@ -59,21 +60,23 @@ Usage: cnf-install ${COMMAND} [-h -f -p -v]
 ```bash
 
 $ cnf-install
-Usage: cnf-install ${COMMAND} [-h -f -p -v]
+Usage: cnf-install ${COMMAND} [-h -f -p -v -i]
   -h / --help            - prints help/usage
   -f / --force           - force command-not-found.com query to show installation methods even if package is already installed
   -p / --package_only    - show package names only in output - useful for automation
   -v / --version         - prints cnf-install version
+  -i / --install         - perform actuall package installation (by default only prints installation command)
 
 $ cnf-install -v
-Version: 0.4-alpha (https://github.com/N0zz/cnf-install/releases/tag/v0.4-alfa)
+Version: v0.5-alfa (https://github.com/N0zz/cnf-install/releases/tag/v0.5-alfa)
 
 $ cnf-install -h
-Usage: cnf-install ${COMMAND} [-h -f -p -v]
+Usage: cnf-install ${COMMAND} [-h -f -p -v -i]
   -h / --help            - prints help/usage
   -f / --force           - force command-not-found.com query to show installation methods even if package is already installed
   -p / --package_only    - show package names only in output - useful for automation
   -v / --version         - prints cnf-install version
+  -i / --install         - perform actuall package installation (by default only prints installation command)
 
 $ cnf-install http
 Found 5 installers, searching for one available on your system...
@@ -82,12 +85,11 @@ Skipping: apt-get
 Installer: brew, Command: brew install httpie
 
 $ brew install httpie | grep -A1 'Fetching\|Summary'
-Warning: Treating httpie as a formula. For the cask, use homebrew/cask/httpie
 ==> Fetching httpie
-==> Downloading https://ghcr.io/v2/homebrew/core/httpie/manifests/3.2.2-1
+==> Downloading https://ghcr.io/v2/homebrew/core/httpie/manifests/3.2.2_1-1
 --
 ==> Summary
-🍺  /opt/homebrew/Cellar/httpie/3.2.2: 1,232 files, 13MB
+🍺  /opt/homebrew/Cellar/httpie/3.2.2_1: 483 files, 2.9MB
 
 $ cnf-install http
 Command http already installed.
@@ -119,7 +121,7 @@ $ cnf-install ansible-playbook -f -p
 ansible
 
 $ cnf-install non-existing-command
-No installers available found on https://command-not-found.com/non-existing-command
+No installers found on https://command-not-found.com/non-existing-command
 ```
 
 ### Ubuntu

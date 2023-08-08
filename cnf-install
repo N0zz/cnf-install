@@ -5,16 +5,17 @@ CNF_URL="https://command-not-found.com"
 DEPENDENCIES=( bash which curl xmllint grep awk sort basename echo column )
 
 print_help() {
-  echo "Usage: $(basename $0) \${COMMAND} [-h -f -p -v]"
+  echo "Usage: $(basename $0) \${COMMAND} [-h -f -p -v -i]"
   help_output+="  -h / --help | - prints help/usage\n"
   help_output+="  -f / --force | - force command-not-found.com query to show installation methods even if package is already installed\n"
   help_output+="  -p / --package_only | - show package names only in output - useful for automation\n"
   help_output+="  -v / --version | - prints cnf-install version\n"
+  help_output+="  -i / --install | - perform actuall package installation (by default only prints installation command)\n"
   echo -e "${help_output}" | column -t -s '|'
 }
 
 print_version() {
-  echo "Version: 0.4-alpha (https://github.com/N0zz/cnf-install/releases/tag/v0.4-alfa)"
+  echo "Version: v0.5-alfa (https://github.com/N0zz/cnf-install/releases/tag/v0.5-alfa)"
 }
 
 for dep in "${DEPENDENCIES[@]}"; do
@@ -42,6 +43,10 @@ for i in "$@"; do
       ;;
     -p|--package-only)
       package_only=true
+      shift
+      ;;
+    -i|--install)
+      do_install=true
       shift
       ;;
     *)
@@ -73,7 +78,7 @@ mapfile -t INSTALLERS < <( curl -sSL0 "${CNF_URL}/${COMMAND}" |\
 )
 
 if [[ "${#INSTALLERS[@]}" == 0 ]]; then
-  echo "No installers available found on ${CNF_URL}/${COMMAND}"
+  echo "No installers found on ${CNF_URL}/${COMMAND}"
   exit 1
 fi
 
@@ -91,6 +96,9 @@ for install_cmd in "${INSTALLERS[@]}"; do
 
     if [[ -z ${package_only} ]]; then
       echo "Installer: ${installer}, Command: ${install_cmd}"
+      if ! [[ -z ${do_install} ]]; then
+        ${install_cmd}
+      fi
     else
       echo "${package_name}"
     fi
