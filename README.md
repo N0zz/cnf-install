@@ -1,5 +1,7 @@
 # cnf-install
 
+[![Unit Tests](https://github.com/N0zz/cnf-install/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/N0zz/cnf-install/actions/workflows/unit_tests.yml)
+
 ## Installation
 
 ### Dependencies
