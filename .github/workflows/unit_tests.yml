@@ -109,7 +109,7 @@ jobs:
           image: centos:latest
           options: -v ${{ github.workspace }}:/workspace
           run: |
-            pacman -S which
+            pacman -S bash which
             chmod +x /workspace/cnf-install
             /workspace/unit_tests.sh
 
