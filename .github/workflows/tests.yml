@@ -29,12 +29,4 @@ jobs:
               apk add bash curl libxml2-utils util-linux
               bash
               chmod +x /workspace/cnf-install
-              # set -v
-              # /workspace/cnf-install --version
-              # /workspace/cnf-install --help
-              # /workspace/cnf-install http
-              # /workspace/cnf-install http --install
-              # /workspace/cnf-install http
-              # /workspace/cnf-install http --force
-              # /workspace/cnf-install http --package-only --force
               /tmp/shunit2/shunit2 /workspace/unit_tests.sh
