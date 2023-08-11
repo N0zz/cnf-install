@@ -21,7 +21,7 @@ jobs:
           chmod +x /tmp/shunit2/shunit2
 
       - name: Set up dependencies
-        run: apk add bash curl libxml2-utils util-linux
+        run: sudo apt install -y curl libxml2-utils util-linux
 
       - name: Install shUnit2
         run: wget -O /tmp/shunit2 https://raw.githubusercontent.com/kward/shunit2/master/shunit2 && chmod +x /tmp/shunit2
