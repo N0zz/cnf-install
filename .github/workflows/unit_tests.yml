@@ -23,7 +23,7 @@ jobs:
           chmod +x /usr/local/bin/shunit2
 
       - name: Run Unit Tests
-        run: shunit2 unit_tests.sh
+        run: . unit_tests.sh
 
       # - name: Run the test process with Docker
       #   uses: n0zz/docker-run-action@v4
