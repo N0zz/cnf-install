@@ -158,4 +158,8 @@ jobs:
           ln -s /workspace ${{ github.workspace }}/
 
       - name: Run Unit Tests
-        run: ./unit_tests.sh
+        run: |
+          pwd
+          ls
+          ls /workspace
+          ./unit_tests.sh
