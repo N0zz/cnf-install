@@ -110,7 +110,7 @@ jobs:
           options: -v ${{ github.workspace }}:/workspace
           run: |
             bash
-            pacman -S which
+            pacman -Sy which
             chmod +x /workspace/cnf-install
             /workspace/unit_tests.sh
 
