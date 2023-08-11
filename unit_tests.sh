@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 testVersion() {
-  assertEquals "Version: v0.1 (https://github.com/N0zz/cnf-install/releases/tag/v0.1)" "$(./cnf-install -v)"
+  assertEquals "Version: v0.2 (https://github.com/N0zz/cnf-install/releases/tag/v0.2)" "$(./cnf-install -v)"
 }
 
 testSearch() {
