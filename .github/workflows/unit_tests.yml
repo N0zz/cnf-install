@@ -44,8 +44,9 @@ jobs:
             apk update
             apk add bash curl libxml2-utils util-linux
             bash
-            chmod +x /workspace/cnf-install
-            /workspace/unit_tests.sh
+            cd /workspace
+            chmod +x cnf-install
+            unit_tests.sh
 
   arch_tests:
     name: "Arch Tests"
@@ -67,8 +68,9 @@ jobs:
           run: |
             bash
             yes | pacman -Sy which
-            chmod +x /workspace/cnf-install
-            /workspace/unit_tests.sh
+            cd /workspace
+            chmod +x cnf-install
+            unit_tests.sh
 
 
   debian_tests:
@@ -91,8 +93,9 @@ jobs:
           run: |
             apt-get update
             apt-get install -y curl libxml2-utils bsdmainutils
-            chmod +x /workspace/cnf-install
-            /workspace/unit_tests.sh
+            cd /workspace
+            chmod +x cnf-install
+            /unit_tests.sh
 
   fedora_tests:
     name: "Fedora Tests"
@@ -113,8 +116,9 @@ jobs:
           options: -v ${{ github.workspace }}:/workspace
           run: |
             dnf install -y util-linux which
-            chmod +x /workspace/cnf-install
-            /workspace/unit_tests.sh
+            cd /workspace
+            chmod +x cnf-install
+            unit_tests.sh
 
   ubuntu_tests:
     name: "Ubuntu Tests"
@@ -136,8 +140,9 @@ jobs:
           run: |
             apt-get update
             apt-get install -y curl libxml2-utils bsdmainutils
-            chmod +x /workspace/cnf-install
-            /workspace/unit_tests.sh
+            cd /workspace
+            chmod +x cnf-install
+            unit_tests.sh
 
   macos_tests:
     name: "MacOS Tests"
@@ -157,9 +162,4 @@ jobs:
           brew install curl libxml2 util-linux debianutils
 
       - name: Run Unit Tests
-        run: |
-          pwd
-          ls
-          ln -s /workspace ${{ github.workspace }}/
-          ls /workspace
-          ./unit_tests.sh
+        run: unit_tests.sh
