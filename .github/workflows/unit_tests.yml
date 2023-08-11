@@ -189,4 +189,5 @@ jobs:
         run: |
           echo $(brew --prefix)/bin/bash | sudo tee -a /private/etc/shells
           sudo chpass -s $(brew --prefix)/bin/bash runner
+          export HOMEBREW_NO_AUTO_UPDATE=1
           ./unit_tests.sh
