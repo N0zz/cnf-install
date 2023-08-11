@@ -21,10 +21,10 @@ jobs:
           chmod +x /tmp/shunit2/shunit2
 
       - name: Run the test process with Docker
-        uses: addnab/docker-run-action@v3
+        uses: n0zz/docker-run-action@v4
         with:
             image: alpine:latest
-            options: -v ${{ github.workspace }}:/workspace -v /tmp/shunit2/shunit2:/tmp/shunit2/shunit2
+            options: -v ${{ github.workspace }}:/workspace -v /tmp/shunit2/:/tmp/shunit2/
             run: |
               apk add bash curl libxml2-utils util-linux
               bash
