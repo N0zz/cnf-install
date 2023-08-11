@@ -46,7 +46,7 @@ jobs:
             bash
             cd /workspace
             chmod +x cnf-install
-            unit_tests.sh
+            ./unit_tests.sh
 
   arch_tests:
     name: "Arch Tests"
@@ -70,7 +70,7 @@ jobs:
             yes | pacman -Sy which
             cd /workspace
             chmod +x cnf-install
-            unit_tests.sh
+            ./unit_tests.sh
 
 
   debian_tests:
@@ -95,7 +95,7 @@ jobs:
             apt-get install -y curl libxml2-utils bsdmainutils
             cd /workspace
             chmod +x cnf-install
-            /unit_tests.sh
+            ./unit_tests.sh
 
   fedora_tests:
     name: "Fedora Tests"
@@ -118,7 +118,7 @@ jobs:
             dnf install -y util-linux which
             cd /workspace
             chmod +x cnf-install
-            unit_tests.sh
+            ./unit_tests.sh
 
   ubuntu_tests:
     name: "Ubuntu Tests"
@@ -142,7 +142,7 @@ jobs:
             apt-get install -y curl libxml2-utils bsdmainutils
             cd /workspace
             chmod +x cnf-install
-            unit_tests.sh
+            ./unit_tests.sh
 
   macos_tests:
     name: "MacOS Tests"
@@ -162,4 +162,4 @@ jobs:
           brew install curl libxml2 util-linux debianutils
 
       - name: Run Unit Tests
-        run: unit_tests.sh
+        run: ./unit_tests.sh
