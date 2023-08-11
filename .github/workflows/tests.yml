@@ -19,5 +19,11 @@ jobs:
       - name: Run --help
         run: bash ./cnf-install --help
 
-      - name: Check docker
-        run: docker run -v ${{ github.workspace }}:/workspace alpine:latest 'ls workspace'
+      - name: Run the test process with Docker
+        uses: addnab/docker-run-action@v3
+        with:
+            image: alpine:latest
+            options: -v ${{ github.workspace }}:/workspace
+            run: |
+              ls
+              ls /workspace
