@@ -18,7 +18,7 @@ jobs:
         run: |
           mkdir -p /tmp/shunit2
           wget -O /tmp/shunit2/shunit2 https://raw.githubusercontent.com/kward/shunit2/master/shunit2 &&\
-          chmod +x shunit2
+          chmod +x /tmp/shunit2/shunit2
 
       - name: Run the test process with Docker
         uses: addnab/docker-run-action@v3
