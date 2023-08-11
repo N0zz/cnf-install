@@ -190,5 +190,5 @@ jobs:
           echo $(brew --prefix)/bin/bash | sudo tee -a /private/etc/shells
           sudo chpass -s $(brew --prefix)/bin/bash runner
           bash --version
-          ./cnf-install http -f
+          bash -x ./cnf-install http -f
           ./unit_tests.sh
