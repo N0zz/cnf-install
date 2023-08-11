@@ -187,5 +187,5 @@ jobs:
 
       - name: MacOS Tests
         run: |
-          chsh -s /usr/local/bin/bash
+          PATH=/usr/local/bin/bash
           ./unit_tests.sh
