@@ -13,17 +13,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: sudo apt install -y libxml2-utils
-
-      - name: Run --help
-        run: bash ./cnf-install --help
-
       - name: Run the test process with Docker
         uses: addnab/docker-run-action@v3
         with:
             image: alpine:latest
             options: -v ${{ github.workspace }}:/workspace
             run: |
-              ls
-              ls /workspace
+              apk add bash curl libxml2-utils
+              bash /workspace/cnf-install --version
+              bash /workspace/cnf-install --help
+              bash /workspace/cnf-install http
+              bash /workspace/cnf-install http -i
+              bash /workspace/cnf-install http
+              bash /workspace/cnf-install http -f
+              bash /workspace/cnf-install http -p -f
