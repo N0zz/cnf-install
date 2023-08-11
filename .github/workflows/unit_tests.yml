@@ -17,7 +17,7 @@ jobs:
           wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2 -O ./shunit2
           chmod +x ./shunit2
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: shunit2
           path: ./shunit2
