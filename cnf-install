@@ -31,11 +31,11 @@ for i in "$@"; do
   case $i in
     -h|--help)
       print_help
-      exit 0
+      return 0
       ;;
     -v|--version)
       print_version
-      exit 0
+      return 0
       ;;
     -f|--force)
       force=true
@@ -54,18 +54,18 @@ for i in "$@"; do
   esac
 done
 
-[[ ! -z ${dep_failed} ]] && exit 1
+[[ ! -z ${dep_failed} ]] && return 1
 
 if [[ -z ${COMMAND} ]]; then
   print_help
-  exit 1
+  return 1
 fi
 
 if [[ -f $(which ${COMMAND} 2>/dev/null) && -z ${force} ]]; then
   echo "Command ${COMMAND} already installed."
   echo "Use -f/--force to show installation instructions anyway."
   echo "File found: $(which ${COMMAND})"
-  exit 0
+  return 0
 fi
 
 # command-not-found.com api only has one endpoint, but its broken, thats why we need to use xmlint to parse website
@@ -79,7 +79,7 @@ mapfile -t INSTALLERS < <( curl -sSL0 "${CNF_URL}/${COMMAND}" |\
 
 if [[ "${#INSTALLERS[@]}" == 0 ]]; then
   echo "No installers found on ${CNF_URL}/${COMMAND}"
-  exit 1
+  return 1
 fi
 
 if [[ -z ${package_only} ]]; then
