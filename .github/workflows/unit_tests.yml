@@ -155,11 +155,11 @@ jobs:
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew install curl libxml2 util-linux debianutils
-          ln -s /workspace ${{ github.workspace }}/
 
       - name: Run Unit Tests
         run: |
           pwd
           ls
+          ln -s /workspace ${{ github.workspace }}/
           ls /workspace
           ./unit_tests.sh
