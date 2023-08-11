@@ -22,28 +22,6 @@ jobs:
           name: shunit2
           path: ./shunit2
 
-  ubuntu_tests:
-    name: "Ubuntu Tests"
-    runs-on: ubuntu-latest
-    needs: prepare_shunit
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: shunit2
-    
-      - name: Ubuntu Tests
-        uses: n0zz/docker-run-action@v4
-        with:
-          image: ubuntu:latest
-          options: -v ${{ github.workspace }}:/workspace
-          run: |
-            apt-get update
-            apt-get install -y curl libxml2-utils bsdmainutils
-            chmod +x /workspace/cnf-install
-            /workspace/unit_tests.sh
 
   alpine_tests:
     name: "Alpine Tests"
@@ -69,6 +47,53 @@ jobs:
             chmod +x /workspace/cnf-install
             /workspace/unit_tests.sh
 
+  arch_tests:
+    name: "Arch Tests"
+    runs-on: ubuntu-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+
+      - name: Arch Tests
+        uses: n0zz/docker-run-action@v4
+        with:
+          image: archlinux:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            bash
+            yes | pacman -Sy which
+            chmod +x /workspace/cnf-install
+            /workspace/unit_tests.sh
+
+
+  debian_tests:
+    name: "Debian Tests"
+    runs-on: ubuntu-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+    
+      - name: Debian Tests
+        uses: n0zz/docker-run-action@v4
+        with:
+          image: debian:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            apt-get update
+            apt-get install -y curl libxml2-utils bsdmainutils
+            chmod +x /workspace/cnf-install
+            /workspace/unit_tests.sh
+
   fedora_tests:
     name: "Fedora Tests"
     runs-on: ubuntu-latest
@@ -91,8 +116,8 @@ jobs:
             chmod +x /workspace/cnf-install
             /workspace/unit_tests.sh
 
-  arch_tests:
-    name: "Arch Tests"
+  ubuntu_tests:
+    name: "Ubuntu Tests"
     runs-on: ubuntu-latest
     needs: prepare_shunit
 
@@ -102,15 +127,15 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: shunit2
-
-      - name: Arch Tests
+    
+      - name: Ubuntu Tests
         uses: n0zz/docker-run-action@v4
         with:
-          image: archlinux:latest
+          image: ubuntu:latest
           options: -v ${{ github.workspace }}:/workspace
           run: |
-            bash
-            pacman -Sy which
+            apt-get update
+            apt-get install -y curl libxml2-utils bsdmainutils
             chmod +x /workspace/cnf-install
             /workspace/unit_tests.sh
 
