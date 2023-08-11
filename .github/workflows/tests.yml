@@ -9,6 +9,7 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    name: "shUnit2 Tests"
 
     steps:
       - uses: actions/checkout@v3
