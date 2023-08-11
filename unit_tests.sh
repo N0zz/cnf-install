@@ -5,14 +5,18 @@ testVersion() {
 }
 
 testHelp() {
-  expected="Usage: cnf-install \${COMMAND} [-h -f -p -v -i]
+  expected="Usage: cnf-install ${COMMAND} [-h -f -p -v -i]
   -h / --help            - prints help/usage
   -f / --force           - force command-not-found.com query to show installation methods even if package is already installed
-  -p / --package_only    - show package names only in output - useful for automation
+  -p / --package-only    - show package names only in output - useful for automation
   -v / --version         - prints cnf-install version
-  -i / --install         - perform actual package installation (by default only prints installation command)"
+  -i / --install         - perform actuall package installation (by default only prints installation command)"
   
   assertEquals "$expected" "$(./cnf-install -h)"
+}
+
+testSearch() {
+  assertContains "Found" "$(./cnf-install http)"
 }
 
 . ./shunit2
