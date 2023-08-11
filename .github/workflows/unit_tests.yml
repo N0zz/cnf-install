@@ -127,7 +127,7 @@ jobs:
 
       - name: Set up dependencies
         run: |
-          /bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew install curl libxml2-utils util-linux debianutils
 
       - name: Run Unit Tests
