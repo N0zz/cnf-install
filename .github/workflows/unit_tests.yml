@@ -190,7 +190,7 @@ jobs:
           echo $(brew --prefix)/bin/bash | sudo tee -a /private/etc/shells
           sudo chpass -s $(brew --prefix)/bin/bash runner
           bash --version
-          mapfile -t INSTALLERS < <( curl -sSL0 "${CNF_URL}/${COMMAND}" |\
+          mapfile -t INSTALLERS < <( curl -sSL0 "https://command-not-found.com/http" |\
             xmllint --html --xpath "//div[starts-with(@class, 'command-install')]/dd/code" - 2>/dev/null |\
             awk -F'[><]' '{print $3}' |\
             grep -v 'cmd.cat\|docker\|sudo' |\
