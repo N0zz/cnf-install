@@ -1,0 +1,193 @@
+name: Unit Tests
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+
+  prepare_shunit:
+    runs-on: ubuntu-latest
+    name: "Prepare shUnit2"
+    steps:
+      - name: Download shUnit2
+        run: |
+          wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2 -O ./shunit2
+          chmod +x ./shunit2
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: shunit2
+          path: ./shunit2
+
+
+  alpine_tests:
+    name: "Alpine Tests"
+    runs-on: ubuntu-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+
+      - name: Alpine Tests
+        uses: n0zz/docker-run-action@v4
+        with:
+          image: alpine:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            apk update
+            apk add bash curl libxml2-utils util-linux
+            bash
+            cd /workspace
+            chmod +x cnf-install
+            ./unit_tests.sh
+
+  arch_tests:
+    name: "Arch Tests"
+    runs-on: ubuntu-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+
+      - name: Arch Tests
+        uses: n0zz/docker-run-action@v4
+        with:
+          image: archlinux:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            bash
+            yes | pacman -Sy which
+            cd /workspace
+            chmod +x cnf-install
+            ./unit_tests.sh
+
+
+  debian_tests:
+    name: "Debian Tests"
+    runs-on: ubuntu-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+    
+      - name: Debian Tests
+        uses: n0zz/docker-run-action@v4
+        with:
+          image: debian:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            apt-get update
+            apt-get install -y curl libxml2-utils bsdmainutils
+            cd /workspace
+            chmod +x cnf-install
+            ./unit_tests.sh
+
+  fedora_tests:
+    name: "Fedora Tests"
+    runs-on: ubuntu-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+
+      - name: Fedora Tests
+        uses: n0zz/docker-run-action@v4
+        with:
+          image: fedora:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            dnf install -y util-linux which
+            cd /workspace
+            chmod +x cnf-install
+            ./unit_tests.sh
+
+  kali_tests:
+    name: "Kali Tests"
+    runs-on: ubuntu-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+    
+      - name: Kali Tests
+        uses: n0zz/docker-run-action@v4
+        with:
+          image: kalilinux/kali-rolling:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            apt-get update
+            apt-get install -y curl libxml2-utils bsdmainutils
+            cd /workspace
+            chmod +x cnf-install
+            ./unit_tests.sh
+
+  ubuntu_tests:
+    name: "Ubuntu Tests"
+    runs-on: ubuntu-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+    
+      - name: Ubuntu Tests
+        uses: n0zz/docker-run-action@v4
+        with:
+          image: ubuntu:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            apt-get update
+            apt-get install -y curl libxml2-utils bsdmainutils
+            cd /workspace
+            chmod +x cnf-install
+            ./unit_tests.sh
+
+  macos_tests:
+    name: "MacOS Tests"
+    runs-on: macos-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+
+      - name: Set up dependencies
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew install curl libxml2 util-linux debianutils bash
+
+      - name: MacOS Tests
+        run: |
+          echo $(brew --prefix)/bin/bash | sudo tee -a /private/etc/shells
+          sudo chpass -s $(brew --prefix)/bin/bash runner
+          export HOMEBREW_NO_AUTO_UPDATE=1
+          ./unit_tests.sh

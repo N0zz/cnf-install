@@ -8,7 +8,7 @@ print_help() {
   echo "Usage: $(basename $0) \${COMMAND} [-h -f -p -v -i]"
   help_output+="  -h / --help | - prints help/usage\n"
   help_output+="  -f / --force | - force command-not-found.com query to show installation methods even if package is already installed\n"
-  help_output+="  -p / --package_only | - show package names only in output - useful for automation\n"
+  help_output+="  -p / --package-only | - show package names only in output - useful for automation\n"
   help_output+="  -v / --version | - prints cnf-install version\n"
   help_output+="  -i / --install | - perform actuall package installation (by default only prints installation command)\n"
   echo -e "${help_output}" | column -t -s '|'
@@ -54,6 +54,8 @@ for i in "$@"; do
   esac
 done
 
+[[ ! -z ${dep_failed} ]] && exit 1
+
 if [[ -z ${COMMAND} ]]; then
   print_help
   exit 1
@@ -66,12 +68,11 @@ if [[ -f $(which ${COMMAND} 2>/dev/null) && -z ${force} ]]; then
   exit 0
 fi
 
-[[ ! -z ${dep_failed} ]] && exit 1
-
 # command-not-found.com api only has one endpoint, but its broken, thats why we need to use xmlint to parse website
 # source: https://github.com/lukaszlach/commando/issues/13
 mapfile -t INSTALLERS < <( curl -sSL0 "${CNF_URL}/${COMMAND}" |\
   xmllint --html --xpath "//div[starts-with(@class, 'command-install')]/dd/code" - 2>/dev/null |\
+  sed 's:><:>\n<:g' |\
   awk -F'[><]' '{print $3}' |\
   grep -v 'cmd.cat\|docker\|sudo' |\
   sort -u \

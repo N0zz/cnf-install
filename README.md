@@ -1,5 +1,7 @@
 # cnf-install
 
+[![Unit Tests](https://github.com/N0zz/cnf-install/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/N0zz/cnf-install/actions/workflows/unit_tests.yml)
+
 ## Installation
 
 ### Dependencies
@@ -23,7 +25,7 @@ chmod +x /usr/bin/cnf-install
 Usage: cnf-install ${COMMAND} [-h -f -p -v]
   -h / --help            - prints help/usage
   -f / --force           - force command-not-found.com query to show installation methods even if package is already installed
-  -p / --package_only    - show package names only in output - useful for automation
+  -p / --package-only    - show package names only in output - useful for automation
   -v / --version         - prints cnf-install version
   -i / --install         - perform actuall package installation (by default only prints installation command)
 ```
@@ -63,7 +65,7 @@ $ cnf-install
 Usage: cnf-install ${COMMAND} [-h -f -p -v -i]
   -h / --help            - prints help/usage
   -f / --force           - force command-not-found.com query to show installation methods even if package is already installed
-  -p / --package_only    - show package names only in output - useful for automation
+  -p / --package-only    - show package names only in output - useful for automation
   -v / --version         - prints cnf-install version
   -i / --install         - perform actuall package installation (by default only prints installation command)
 
@@ -74,7 +76,7 @@ $ cnf-install -h
 Usage: cnf-install ${COMMAND} [-h -f -p -v -i]
   -h / --help            - prints help/usage
   -f / --force           - force command-not-found.com query to show installation methods even if package is already installed
-  -p / --package_only    - show package names only in output - useful for automation
+  -p / --package-only    - show package names only in output - useful for automation
   -v / --version         - prints cnf-install version
   -i / --install         - perform actuall package installation (by default only prints installation command)
 
@@ -133,7 +135,7 @@ $ http --version
 $ cnf_install 
 Usage: cnf-install ${COMMAND} [-f -p]
   -f / --force - force command-not-found.com query to show installation methods even if package is already installed
-  -p / --package_only - show package names only in output - useful for automation
+  -p / --package-only - show package names only in output - useful for automation
 
 $ cnf_install http
 curl not installed. Check out https://command-not-found.com/curl for instructions.
