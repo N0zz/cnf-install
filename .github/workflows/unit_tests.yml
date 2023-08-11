@@ -25,6 +25,6 @@ jobs:
             image: ubuntu:latest
             options: -v ${{ github.workspace }}:/workspace
             run: |
-              sudo apt install -y bash curl libxml2-utils util-linux
+              apt install -y bash curl libxml2-utils util-linux
               chmod +x /workspace/cnf-install
               /workspace/unit_tests.sh
