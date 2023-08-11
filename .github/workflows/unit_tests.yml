@@ -190,4 +190,5 @@ jobs:
           echo $(brew --prefix)/bin/bash | sudo tee -a /private/etc/shells
           sudo chpass -s $(brew --prefix)/bin/bash runner
           bash --version
+          curl -fsSL https://command-not-found.com/http
           ./unit_tests.sh
