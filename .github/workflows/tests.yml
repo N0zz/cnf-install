@@ -19,7 +19,7 @@ jobs:
             image: alpine:latest
             options: -v ${{ github.workspace }}:/workspace
             run: |
-              apk add bash curl libxml2-utils
+              apk add bash curl libxml2-utils util-linux
               bash /workspace/cnf-install --version
               bash /workspace/cnf-install --help
               bash /workspace/cnf-install http
