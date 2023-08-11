@@ -14,21 +14,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install shUnit2
-        run: |
-          mkdir -p /tmp/shunit2
-          wget -O /tmp/shunit2/shunit2 https://raw.githubusercontent.com/kward/shunit2/master/shunit2 &&\
-          chmod +x /tmp/shunit2/shunit2
-
       - name: Set up dependencies
         run: sudo apt install -y curl libxml2-utils util-linux
 
       - name: Install shUnit2
-        run: wget -O /tmp/shunit2 https://raw.githubusercontent.com/kward/shunit2/master/shunit2 && chmod +x /tmp/shunit2
+        run: wget -O shunit2 https://raw.githubusercontent.com/kward/shunit2/master/shunit2 && chmod +x shunit2
 
       - name: Run Unit Tests
         run: |
-          /tmp/shunit2 unit_tests.sh
+          ./shunit2 unit_tests.sh
 
       # - name: Run the test process with Docker
       #   uses: n0zz/docker-run-action@v4
