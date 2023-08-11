@@ -190,5 +190,5 @@ jobs:
           echo $(brew --prefix)/bin/bash | sudo tee -a /private/etc/shells
           sudo chpass -s $(brew --prefix)/bin/bash runner
           bash --version
-          curl -fsSL https://command-not-found.com/http
+          curl -fsSL https://command-not-found.com/http | xmllint --html --xpath "//div[starts-with(@class, 'command-install')]/dd/code" - 2>/dev/null
           ./unit_tests.sh
