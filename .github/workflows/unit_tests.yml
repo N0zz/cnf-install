@@ -7,49 +7,128 @@ on:
   workflow_dispatch:
 
 jobs:
-  ubuntu_tests:
+
+  prepare_shunit:
     runs-on: ubuntu-latest
-    name: "Ubuntu Tests"
-
+    name: "Prepare shUnit2"
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Install shUnit2
+      - name: Download shUnit2
         run: |
           wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2 -O ./shunit2
           chmod +x ./shunit2
 
+      - uses: actions/upload-artifact@v2
+        with:
+          name: shunit2
+          path: ./shunit2
+
+  ubuntu_tests:
+    name: "Ubuntu Tests"
+    runs-on: ubuntu-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+    
       - name: Ubuntu Tests
         uses: n0zz/docker-run-action@v4
         with:
-            image: ubuntu:latest
-            options: -v ${{ github.workspace }}:/workspace
-            run: |
-              apt-get update
-              apt-get install -y bash curl libxml2-utils bsdmainutils
-              chmod +x /workspace/cnf-install
-              /workspace/unit_tests.sh
+          image: ubuntu:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            apt-get update
+            apt-get install -y curl libxml2-utils bsdmainutils
+            chmod +x /workspace/cnf-install
+            /workspace/unit_tests.sh
 
   alpine_tests:
-    runs-on: ubuntu-latest
     name: "Alpine Tests"
+    runs-on: ubuntu-latest
+    needs: prepare_shunit
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install shUnit2
-        run: |
-          wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2 -O ./shunit2
-          chmod +x ./shunit2
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
 
       - name: Alpine Tests
         uses: n0zz/docker-run-action@v4
         with:
-            image: alpine:latest
-            options: -v ${{ github.workspace }}:/workspace
-            run: |
-              apk update
-              apk add bash curl libxml2-utils util-linux
-              bash
-              chmod +x /workspace/cnf-install
-              /workspace/unit_tests.sh
+          image: alpine:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            apk update
+            apk add bash curl libxml2-utils util-linux
+            bash
+            chmod +x /workspace/cnf-install
+            /workspace/unit_tests.sh
+
+  fedora_tests:
+    name: "Fedora Tests"
+    runs-on: ubuntu-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+
+      - name: Fedora Tests
+        uses: n0zz/docker-run-action@v4
+        with:
+          image: fedora:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            dnf install -y util-linux which
+            chmod +x /workspace/cnf-install
+            /workspace/unit_tests.sh
+
+  arch_tests:
+    name: "Arch Tests"
+    runs-on: ubuntu-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+
+      - name: Arch Tests
+        uses: n0zz/docker-run-action@v4
+        with:
+          image: centos:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            pacman -S which
+            chmod +x /workspace/cnf-install
+            /workspace/unit_tests.sh
+
+  macos_tests:
+    name: "MacOS Tests"
+    runs-on: macos-latest
+    needs: prepare_shunit
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: shunit2
+
+      - name: Set up dependencies
+        run: |
+          /bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew install curl libxml2-utils util-linux debianutils
+
+      - name: Run Unit Tests
+        run: ./unit_tests.sh
