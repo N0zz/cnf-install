@@ -135,7 +135,7 @@ jobs:
       - name: Kali Tests
         uses: n0zz/docker-run-action@v4
         with:
-          image: kali-rolling:latest
+          image: kalilinux/kali-rolling:latest
           options: -v ${{ github.workspace }}:/workspace
           run: |
             apt-get update
@@ -184,7 +184,6 @@ jobs:
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew install bash curl libxml2 util-linux debianutils
-          sudo mv /usr/local/bin/bash /bin/bash
 
       - name: MacOS Tests
         run: ./unit_tests.sh
