@@ -19,11 +19,11 @@ jobs:
 
       - name: Install shUnit2
         run: |
-          wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2 -O /usr/local/bin/shunit2
-          chmod +x /usr/local/bin/shunit2
+          wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2 -O ./shunit2
+          chmod +x ./shunit2
 
       - name: Run Unit Tests
-        run: . unit_tests.sh
+        run: ./unit_tests.sh
 
       # - name: Run the test process with Docker
       #   uses: n0zz/docker-run-action@v4
