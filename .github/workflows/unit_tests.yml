@@ -187,5 +187,5 @@ jobs:
 
       - name: MacOS Tests
         run: |
-          PATH=/usr/local/bin/bash
+          sudo mv /usr/local/bin/bash /bin/bash
           ./unit_tests.sh
