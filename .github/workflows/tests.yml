@@ -20,4 +20,4 @@ jobs:
         run: bash ./cnf-install --help
 
       - name: Check docker
-        run: docker ps -a
+        run: docker run -v ${{ github.workspace }}:/workspace alpine:latest 'apk add bash lbixml2-utils curl; bash /workspace/cnf-install --version'
