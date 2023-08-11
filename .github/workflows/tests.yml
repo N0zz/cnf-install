@@ -27,4 +27,4 @@ jobs:
               bash /workspace/cnf-install http --install
               bash /workspace/cnf-install http
               bash /workspace/cnf-install http --force
-              bash /workspace/cnf-install http --package_only --force
+              bash /workspace/cnf-install http --package-only --force

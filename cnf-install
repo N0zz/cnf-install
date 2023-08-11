@@ -8,7 +8,7 @@ print_help() {
   echo "Usage: $(basename $0) \${COMMAND} [-h -f -p -v -i]"
   help_output+="  -h / --help | - prints help/usage\n"
   help_output+="  -f / --force | - force command-not-found.com query to show installation methods even if package is already installed\n"
-  help_output+="  -p / --package_only | - show package names only in output - useful for automation\n"
+  help_output+="  -p / --package-only | - show package names only in output - useful for automation\n"
   help_output+="  -v / --version | - prints cnf-install version\n"
   help_output+="  -i / --install | - perform actuall package installation (by default only prints installation command)\n"
   echo -e "${help_output}" | column -t -s '|'
