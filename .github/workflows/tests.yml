@@ -20,4 +20,4 @@ jobs:
         run: bash ./cnf-install --help
 
       - name: Check docker
-        run: docker run -v ${{ github.workspace }}:/workspace alpine:latest 'ls'
+        run: docker run -v ${{ github.workspace }}:/workspace alpine:latest 'ls workspace'
