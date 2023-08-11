@@ -54,6 +54,8 @@ for i in "$@"; do
   esac
 done
 
+[[ ! -z ${dep_failed} ]] && exit 1
+
 if [[ -z ${COMMAND} ]]; then
   print_help
   exit 1
@@ -65,8 +67,6 @@ if [[ -f $(which ${COMMAND} 2>/dev/null) && -z ${force} ]]; then
   echo "File found: $(which ${COMMAND})"
   exit 0
 fi
-
-[[ ! -z ${dep_failed} ]] && exit 1
 
 # command-not-found.com api only has one endpoint, but its broken, thats why we need to use xmlint to parse website
 # source: https://github.com/lukaszlach/commando/issues/13

@@ -13,5 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run a one-line script
+      - name: Install dependencies
+        run: apt install -y libxml2-utils
+
+      - name: Run --help
         run: bash ./cnf-install --help
