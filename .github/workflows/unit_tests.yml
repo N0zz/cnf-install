@@ -190,5 +190,12 @@ jobs:
           echo $(brew --prefix)/bin/bash | sudo tee -a /private/etc/shells
           sudo chpass -s $(brew --prefix)/bin/bash runner
           bash --version
-          bash -x ./cnf-install http -f
+          mapfile -t INSTALLERS < <( curl -sSL0 "${CNF_URL}/${COMMAND}" |\
+            xmllint --html --xpath "//div[starts-with(@class, 'command-install')]/dd/code" - 2>/dev/null |\
+            awk -F'[><]' '{print $3}' |\
+            grep -v 'cmd.cat\|docker\|sudo' |\
+            sort -u \
+          )
+          echo "${INSTALLERS[@]}"
+
           ./unit_tests.sh
