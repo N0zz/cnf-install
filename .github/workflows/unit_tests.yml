@@ -187,5 +187,6 @@ jobs:
 
       - name: MacOS Tests
         run: |
-          /usr/local/Cellar/bash
+          which bash
+          cat /etc/shells
           ./unit_tests.sh
