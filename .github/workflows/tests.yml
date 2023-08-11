@@ -20,13 +20,23 @@ jobs:
           wget -O /tmp/shunit2/shunit2 https://raw.githubusercontent.com/kward/shunit2/master/shunit2 &&\
           chmod +x /tmp/shunit2/shunit2
 
-      - name: Run the test process with Docker
-        uses: n0zz/docker-run-action@v4
-        with:
-            image: alpine:latest
-            options: -v ${{ github.workspace }}:/workspace -v /tmp/shunit2/:/tmp/shunit2/
-            run: |
-              apk add bash curl libxml2-utils util-linux
-              bash
-              chmod +x /workspace/cnf-install
-              /tmp/shunit2/shunit2 /workspace/unit_tests.sh
+      - name: Set up dependencies
+        run: apk add bash curl libxml2-utils util-linux
+
+      - name: Install shUnit2
+        run: wget -O /tmp/shunit2 https://raw.githubusercontent.com/kward/shunit2/master/shunit2 && chmod +x /tmp/shunit2
+
+      - name: Run Unit Tests
+        run: |
+          /tmp/shunit2 unit_tests.sh
+
+      # - name: Run the test process with Docker
+      #   uses: n0zz/docker-run-action@v4
+      #   with:
+      #       image: alpine:latest
+      #       options: -v ${{ github.workspace }}:/workspace -v /tmp/shunit2/:/tmp/shunit2/
+      #       run: |
+      #         apk add bash curl libxml2-utils util-linux
+      #         bash
+      #         chmod +x /workspace/cnf-install
+      #         /tmp/shunit2/shunit2 /workspace/unit_tests.sh
