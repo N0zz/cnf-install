@@ -187,5 +187,7 @@ jobs:
 
       - name: MacOS Tests
         run: |
-          sudo mv /usr/local/bin/bash /bin/bash
+          echo $(brew --prefix)/bin/bash | sudo tee -a /private/etc/shells
+          sudo chpass -s $(brew --prefix)/bin/bash runner
+          bash --version
           ./unit_tests.sh
