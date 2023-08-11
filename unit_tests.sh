@@ -9,7 +9,7 @@ testSearch() {
 }
 
 testInstall() {
-  ./cnf-install http -i
+  yes | ./cnf-install http -i
   rc=$?
   assertTrue "[ ${rc} == 0 ]"
 }
