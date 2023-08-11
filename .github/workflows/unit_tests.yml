@@ -109,7 +109,8 @@ jobs:
           image: centos:latest
           options: -v ${{ github.workspace }}:/workspace
           run: |
-            pacman -S bash which
+            bash
+            pacman -S which
             chmod +x /workspace/cnf-install
             /workspace/unit_tests.sh
 
@@ -128,7 +129,7 @@ jobs:
       - name: Set up dependencies
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          brew install curl libxml2-utils util-linux debianutils
+          brew install curl libxml2 util-linux debianutils
 
       - name: Run Unit Tests
         run: ./unit_tests.sh
