@@ -187,5 +187,5 @@ jobs:
 
       - name: MacOS Tests
         run: |
-          /opt/homebrew/bin/bash
+          /usr/local/Cellar/bash
           ./unit_tests.sh
