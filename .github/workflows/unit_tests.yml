@@ -185,7 +185,8 @@ jobs:
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew install curl libxml2 util-linux debianutils bash
           eval "$(brew shellenv)"
-          echo ${BASH_VERSION}
+          which bash
+          bash
 
       - name: MacOS Tests
         run: ./unit_tests.sh
