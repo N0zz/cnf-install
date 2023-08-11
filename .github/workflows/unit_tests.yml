@@ -106,7 +106,7 @@ jobs:
       - name: Arch Tests
         uses: n0zz/docker-run-action@v4
         with:
-          image: centos:latest
+          image: archlinux:latest
           options: -v ${{ github.workspace }}:/workspace
           run: |
             bash
