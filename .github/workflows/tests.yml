@@ -18,11 +18,12 @@ jobs:
         run: sudo apt install -y curl libxml2-utils util-linux
 
       - name: Install shUnit2
-        run: wget -O shunit2 https://raw.githubusercontent.com/kward/shunit2/master/shunit2 && chmod +x shunit2
+        run: |
+          wget https://raw.githubusercontent.com/kward/shunit2/master/shunit2 -O /usr/local/bin/shunit2
+          chmod +x /usr/local/bin/shunit2
 
       - name: Run Unit Tests
-        run: |
-          ./shunit2 unit_tests.sh
+        run: shunit2 unit_tests.sh
 
       # - name: Run the test process with Docker
       #   uses: n0zz/docker-run-action@v4
