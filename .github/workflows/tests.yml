@@ -20,11 +20,10 @@ jobs:
             options: -v ${{ github.workspace }}:/workspace
             run: |
               apk add bash curl libxml2-utils util-linux
-              set -v
-              bash /workspace/cnf-install --version
-              bash /workspace/cnf-install --help
-              bash /workspace/cnf-install http
-              bash /workspace/cnf-install http --install
-              bash /workspace/cnf-install http
-              bash /workspace/cnf-install http --force
-              bash /workspace/cnf-install http --package-only --force
+              bash -v /workspace/cnf-install --version
+              bash -v /workspace/cnf-install --help
+              bash -v /workspace/cnf-install http
+              bash -v /workspace/cnf-install http --install
+              bash -v /workspace/cnf-install http
+              bash -v /workspace/cnf-install http --force
+              bash -v /workspace/cnf-install http --package-only --force
