@@ -14,4 +14,10 @@ testInstall() {
   assertTrue "[ ${rc} == 0 ]"
 }
 
+testInstalledPackage() {
+  http --version
+  rc=$?
+  assertTrue "[ ${rc} == 0]"
+}
+
 . ./shunit2
